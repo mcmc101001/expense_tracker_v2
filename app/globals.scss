@@ -1,0 +1,104 @@
+$bgcolor: rgb(26, 26, 26);
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    font-family: "Open Sans", "Helvetica", sans-serif;
+    background-color: $bgcolor;
+}
+
+.expense {
+    color: white;
+    display:grid;
+    grid-template-areas: "icon name cost" "icon type time";
+    opacity: 0.95;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    gap: 1.5vh 0.5vh;
+    grid-template-columns: 14vw 7fr 3fr;
+    align-items: center;
+    padding: 0.5vh;
+
+    .expense-name {
+        grid-area: name;
+        display: flex;
+        font-size: clamp(1rem, 2vw + 0.5rem, 3rem);
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .expense-cost {
+        grid-area: cost;
+        display: flex;
+        font-size: clamp(1rem, 2vw + 0.5rem, 3rem);
+        justify-content: flex-end;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    
+    .expense-type {
+        grid-area: type;
+        display: flex;
+        font-size: clamp(0.7rem, 2vw + 0.3rem, 1.5rem);
+        margin-left: 10px;
+    }
+    
+    .expense-time {
+        grid-area: time;
+        display: flex;
+        font-size: clamp(0.7rem, 2vw + 0.3rem, 1.5rem);
+        justify-content: flex-end;
+        margin-right: 10px;
+    }
+}
+
+.wrapper {
+    @include flex-center;
+    flex-direction: column;
+}
+
+.remaining_budget {
+    p {
+        margin-bottom: 0px !important;
+        margin-top: 0px !important;
+    }
+    color: black;
+    background-color:white;
+    opacity: 0.95;
+    border-radius: 25px;
+    padding: 20px;
+    width: clamp(200px, 80vw, 1000px);
+    text-align: center;
+    font-size: clamp(1.2rem, 4vw, 3rem);
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+/* Navbar styling */
+.navbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: antiquewhite;
+    padding: 0.5rem 0rem;
+
+    .navbar-items {
+        margin-left: auto;
+
+        ul {
+            display: flex;
+            padding: 0; 
+
+            li {
+                list-style-type: none;
+                margin: 0 1rem;
+            }
+        }
+    }
+}
