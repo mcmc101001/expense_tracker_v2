@@ -1,4 +1,8 @@
 $bgcolor: rgb(26, 26, 26);
+$contrastbgcolor: white;
+$contrasttextcolor: rgb(26, 26, 26);
+$textcolor: white;
+$navbarwidth: 8rem;
 
 @mixin flex-center {
     display: flex;
@@ -6,12 +10,31 @@ $bgcolor: rgb(26, 26, 26);
     align-items: center;
 }
 
+html {
+    margin: 0 !important;
+    height: 100%;
+}
+
 body {
+    font-family: "Open Sans", sans-serif;
     background-color: $bgcolor;
+    margin: 0 !important;
+    padding: 0;
+    height: 100%;
+
+}
+
+.icon-enclose {
+    position: relative;
+    object-fit: contain;
+}
+
+img {
+    position: relative !important;
 }
 
 .expense {
-    color: white;
+    color: $textcolor;
     display:grid;
     grid-template-areas: "icon name cost" "icon type time";
     opacity: 0.95;
@@ -23,7 +46,7 @@ body {
     padding: 0.5vh;
 
     .expense-icon {
-        background-color: rgb(216, 216, 216);
+        background-color: $contrastbgcolor;
         border-radius: 3vw;
         grid-area: icon;
         display: flex;
@@ -33,9 +56,6 @@ body {
         height: 13vw;
         padding: 1.5vw;
         transition: all 1s;
-        position: relative;
-        object-fit: contain;
-        overflow: hidden;
     }
 
     .expense-name {
@@ -71,10 +91,15 @@ body {
     }
 }
 
-.wrapper {
+main {
     @include flex-center;
     flex-direction: column;
     margin: 20px;
+    margin-left: calc($navbarwidth + 20px);
+    width: calc(100vw - $navbarwidth - 40px);
+    h1 {
+        color: $textcolor;
+    }
 }
 
 .remaining_budget {
@@ -83,7 +108,7 @@ body {
         margin-top: 0px !important;
     }
     color: black;
-    background-color:white;
+    background-color:$contrastbgcolor;
     opacity: 0.95;
     border-radius: 25px;
     padding: 20px;
@@ -98,9 +123,138 @@ body {
 .expense-table {
     width: 100%;
     h3 {
-        color: white;
+        color: $textcolor;
     }
 }
 
 /* Navbar styling */
 
+nav {
+    z-index: 1;
+    color: $textcolor;
+    background-color: $contrastbgcolor;
+    width: $navbarwidth;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .navbar-logo {
+        @include flex-center;
+        height: $navbarwidth;
+        width: $navbarwidth;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+
+        ul {
+            padding: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            
+            li {
+                list-style: none;
+                height: calc($navbarwidth / 2);
+                display: block;
+                
+                a {
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    color: $contrasttextcolor;
+
+                    img {
+                        width: 4rem !important;
+                        height: 4rem !important;
+                    }
+                }
+            }
+
+            li:hover {
+                background-color: gray;
+                
+                a {
+                    color: $textcolor;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        top: auto;
+        bottom: 0;
+        width: 100vw;
+        height: calc($navbarwidth/2); 
+        flex-direction: row;
+
+        .navbar-logo {
+            display: none;
+        }
+
+        .navbar-items {
+            flex-direction: row;
+            align-items: center;
+            margin: 0 10px;
+            height: 100%;
+
+            ul {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                margin: 0;
+                height: 100%;
+                li {
+                    width: 100%;
+                    padding: 5px;
+                }
+            }
+        }
+
+    }
+
+    main {
+        margin: 20px;
+        margin-bottom: calc($navbarwidth/2 + 20px);
+        width: auto;
+    }
+
+
+}
+
+/* Scrollbar styling */
+
+/* Scrollbar styling */
+
+
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: white;
+}
