@@ -2,7 +2,9 @@ $bgcolor: rgb(26, 26, 26);
 $contrastbgcolor: white;
 $contrasttextcolor: rgb(26, 26, 26);
 $textcolor: white;
-$navbarwidth: 8rem;
+$navbarwidth: 12rem;
+$navbarheightcompressed: 4rem;
+$animationspeed: 500ms;
 
 @mixin flex-center {
     display: flex;
@@ -29,9 +31,6 @@ body {
     object-fit: contain;
 }
 
-img {
-    position: relative !important;
-}
 
 .expense {
     color: $textcolor;
@@ -97,6 +96,7 @@ main {
     margin: 20px;
     margin-left: calc($navbarwidth + 20px);
     width: calc(100vw - $navbarwidth - 40px);
+
     h1 {
         color: $textcolor;
     }
@@ -111,8 +111,8 @@ main {
     background-color:$contrastbgcolor;
     opacity: 0.95;
     border-radius: 25px;
-    padding: 20px;
-    width: clamp(200px, 80vw, 1000px);
+    padding: 1rem 4rem;
+    margin: auto;
     text-align: center;
     font-size: clamp(1.2rem, 4vw, 3rem);
     font-weight: bold;
@@ -128,6 +128,11 @@ main {
 }
 
 /* Navbar styling */
+
+.nav-link-active {
+    outline: 5px solid black;
+    outline-offset: -5px;
+}
 
 nav {
     z-index: 1;
@@ -151,6 +156,7 @@ nav {
     }
 
     .navbar-items {
+        height: $navbarheightcompressed;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -163,27 +169,34 @@ nav {
             width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: left;
+            align-items: start;
             justify-content: center;
-            
+
             li {
+                height: 100%;
                 list-style: none;
-                height: calc($navbarwidth / 2);
-                display: block;
+                height: $navbarheightcompressed;
+                margin-bottom: 1rem;
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
                 
                 a {
-                    height: 100%;
-                    width: 100%;
                     display: flex;
                     flex-direction: row;
-                    justify-content: center;
+                    justify-content: flex-start;
                     align-items: center;
                     text-decoration: none;
                     color: $contrasttextcolor;
+                    height: 100%;
+                    width: 100%;
 
-                    img {
-                        width: 4rem !important;
-                        height: 4rem !important;
+                    svg {
+                        padding-left: 1rem;
+                        width: 3rem !important;
+                        height: 3rem !important;
+                        margin-right: 0.3rem;
                     }
                 }
             }
@@ -204,7 +217,7 @@ nav {
         top: auto;
         bottom: 0;
         width: 100vw;
-        height: calc($navbarwidth/2); 
+        height: $navbarheightcompressed; 
         flex-direction: row;
 
         .navbar-logo {
@@ -224,9 +237,10 @@ nav {
                 justify-content: space-around;
                 margin: 0;
                 height: 100%;
+
                 li {
                     width: 100%;
-                    padding: 5px;
+                    margin: 0;
                 }
             }
         }
@@ -235,8 +249,8 @@ nav {
 
     main {
         margin: 20px;
-        margin-bottom: calc($navbarwidth/2 + 20px);
-        width: auto;
+        padding-bottom: calc($navbarheightcompressed + 20px);
+        width: calc(100vw - 40px);
     }
 
 

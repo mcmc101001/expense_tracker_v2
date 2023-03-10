@@ -16,10 +16,6 @@ body {
   object-fit: contain;
 }
 
-img {
-  position: relative !important;
-}
-
 .expense {
   color: white;
   display: grid;
@@ -79,8 +75,8 @@ main {
   align-items: center;
   flex-direction: column;
   margin: 20px;
-  margin-left: calc(8rem + 20px);
-  width: calc(100vw - 8rem - 40px);
+  margin-left: calc(12rem + 20px);
+  width: calc(100vw - 12rem - 40px);
 }
 main h1 {
   color: white;
@@ -91,8 +87,8 @@ main h1 {
   background-color: white;
   opacity: 0.95;
   border-radius: 25px;
-  padding: 20px;
-  width: clamp(200px, 80vw, 1000px);
+  padding: 1rem 4rem;
+  margin: auto;
   text-align: center;
   font-size: clamp(1.2rem, 4vw, 3rem);
   font-weight: bold;
@@ -112,11 +108,16 @@ main h1 {
 }
 
 /* Navbar styling */
+.nav-link-active {
+  outline: 5px solid black;
+  outline-offset: -5px;
+}
+
 nav {
   z-index: 1;
   color: white;
   background-color: white;
-  width: 8rem;
+  width: 12rem;
   height: 100%;
   position: fixed;
   top: 0;
@@ -128,13 +129,14 @@ nav .navbar-logo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8rem;
-  width: 8rem;
+  height: 12rem;
+  width: 12rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 nav .navbar-items {
+  height: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,27 +149,34 @@ nav .navbar-items ul {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: start;
   justify-content: center;
 }
 nav .navbar-items ul li {
+  height: 100%;
   list-style: none;
   height: 4rem;
-  display: block;
-}
-nav .navbar-items ul li a {
-  height: 100%;
+  margin-bottom: 1rem;
   width: 100%;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+nav .navbar-items ul li a {
+  display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-decoration: none;
   color: rgb(26, 26, 26);
+  height: 100%;
+  width: 100%;
 }
-nav .navbar-items ul li a img {
-  width: 4rem !important;
-  height: 4rem !important;
+nav .navbar-items ul li a svg {
+  padding-left: 1rem;
+  width: 3rem !important;
+  height: 3rem !important;
+  margin-right: 0.3rem;
 }
 nav .navbar-items ul li:hover {
   background-color: gray;
@@ -203,12 +212,12 @@ nav .navbar-items ul li:hover a {
   }
   nav .navbar-items ul li {
     width: 100%;
-    padding: 5px;
+    margin: 0;
   }
   main {
     margin: 20px;
-    margin-bottom: calc(4rem + 20px);
-    width: auto;
+    padding-bottom: calc(4rem + 20px);
+    width: calc(100vw - 40px);
   }
 }
 /* Scrollbar styling */

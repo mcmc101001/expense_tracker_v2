@@ -1,5 +1,8 @@
 import Navbar from "./expenses/components/Navbar";
 import "./globals.css";
+import * as React from 'react';
+
+
 
 export const metadata = {
     title: "Create Next App",
