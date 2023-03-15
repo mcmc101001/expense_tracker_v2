@@ -26,14 +26,14 @@ const RemainingBudget:FC<Filters>= (props) => {
 
     return (
         <div className="select">
-                <Select
-            closeMenuOnSelect={false}
-            blurInputOnSelect={false}
-            components={animatedComponents}
-            defaultValue={options}
-            isMulti={true}
-            options={options}
-            onChange={(e) => props.handleChange(e.map((item) => item.value))}
+            <Select
+                closeMenuOnSelect={false}
+                blurInputOnSelect={false}
+                components={animatedComponents}
+                defaultValue={options}
+                isMulti={true}
+                options={options}
+                onChange={(e) => props.handleChange(e.map((item) => item.value))}
             />
         </div>
     );

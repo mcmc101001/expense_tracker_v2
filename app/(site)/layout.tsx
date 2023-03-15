@@ -1,8 +1,9 @@
-import Navbar from "./expenses/components/Navbar";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 import * as React from 'react';
+import { Inter } from 'next/font/google';
 
-
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
     title: "Create Next App",
@@ -19,7 +20,7 @@ export default function RootLayout({
             <head>
                 <title>Expense tracker v2</title>
             </head>
-            <body>
+            <body className={inter.className}>
                 <Navbar />
                 <main>
                     {children}

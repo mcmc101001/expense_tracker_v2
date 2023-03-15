@@ -1,9 +1,10 @@
 'use client'
 
 import RemainingBudget from './RemainingBudget';
-import Filters from './Filters';
-import ExpenseTable from './Expense';
+import Filters from '@/components/Filters';
+import ExpenseTable from '@/components/Expense';
 import { useState, FC } from 'react';
+import ExpenseCreationForm from './ExpenseCreationForm';
 
 interface ClientProps {
     budget: number;
@@ -39,6 +40,7 @@ const Client:FC<ClientProps> = (props) => {
         <RemainingBudget budget={props.budget} />
         <Filters handleChange={(filters:string[]) => HandleChange(filters)} filter={filters} />
         <ExpenseTable expenses={expenses_remain}/>
+        <ExpenseCreationForm />
       </>
     );
   }

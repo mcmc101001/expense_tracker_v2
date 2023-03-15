@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link';
-import Bug from './svgs/Bug';
-import Home from './svgs/Home';
-import Expenses from './svgs/Expenses';
+import Bug from '@/components/svgs/Bug';
+import Home from '@/components/svgs/Home';
+import Expenses from '@/components/svgs/Expenses';
 import { usePathname } from 'next/navigation';
 
 const navFunctions = [

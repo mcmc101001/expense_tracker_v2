@@ -51,6 +51,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  expenses      Expense[]
 }
 
 model VerificationToken {
@@ -68,6 +69,10 @@ model Expense {
   name    String   @db.VarChar(255)
   cost    Float    @db.Double
   type    ExpenseType
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String  
+
+  @@index([userId])
 }
 
 enum ExpenseType {
