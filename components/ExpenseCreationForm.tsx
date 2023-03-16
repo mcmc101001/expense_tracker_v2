@@ -25,8 +25,8 @@ const ExpenseCreationForm = () => {
 
     const handleSubmit = async(event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        await fetch('/api/expenses/', {
+        
+        await fetch('/api/addExpense', {
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,6 +41,7 @@ const ExpenseCreationForm = () => {
         setName('');
         setCost('');
         setType('');
+        
         router.refresh();
     }
 

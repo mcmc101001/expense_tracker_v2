@@ -4,7 +4,6 @@ html {
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
   background-color: rgb(26, 26, 26);
   margin: 0 !important;
   padding: 0;
@@ -67,6 +66,10 @@ body {
   font-size: clamp(0.7rem, 2vw + 0.4rem, 1.5rem);
   justify-content: flex-end;
   margin-right: 10px;
+}
+
+h3 {
+  color: white;
 }
 
 main {

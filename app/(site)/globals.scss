@@ -90,6 +90,10 @@ body {
     }
 }
 
+h3 {
+    color: white;
+}
+
 main {
     @include flex-center;
     flex-direction: column;
