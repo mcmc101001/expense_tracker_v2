@@ -15,6 +15,9 @@ async function getExpenses(sessionUserId: string ) {
       },
     where: {
       userId: sessionUserId,
+    },
+    orderBy: {
+      created: 'desc',
     }
   });
   return res;

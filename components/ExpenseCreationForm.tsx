@@ -19,12 +19,14 @@ const options = [
 const ExpenseCreationForm = () => {
     const router = useRouter();
     
+    const [isDisabled, setIsDisabled] = useState(false);
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
     const [type, setType] = useState('');
 
     const handleSubmit = async(event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setIsDisabled(true);
         
         await fetch('/api/addExpense', {
             method : 'POST',
@@ -41,7 +43,7 @@ const ExpenseCreationForm = () => {
         setName('');
         setCost('');
         setType('');
-        
+        setIsDisabled(false);
         router.refresh();
     }
 
@@ -82,7 +84,7 @@ const ExpenseCreationForm = () => {
                 id="type"
                 onChange={(e) => handleSelectChange(e)}
             />
-            <button type='submit'>Create expense</button>
+            <button type='submit' disabled={isDisabled}>Create expense</button>
         </form>
     );
 }

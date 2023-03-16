@@ -2,18 +2,12 @@ import React from "react";
 import { FC } from "react";
 import Image from "next/image";
 import WontUse from "./svgs/WontUse";
+import { Expense } from "@prisma/client";
 
 interface Expenses {
     expenses: Array<Expense>;
 }
 
-interface Expense {
-    id: number;
-    name: string;
-    type: string;
-    created: Date;
-    cost: number;
-}
 
 const ExpenseTable:FC<Expenses>= (props) => {
 
@@ -130,7 +124,7 @@ const Expense:FC<Expense>= (props) => {
                 priority
             />
             break;
-        case "Misc.":
+        case "Misc":
             icon = <Image
                 src="/misc.svg"
                 alt="Misc. Logo"
@@ -138,7 +132,7 @@ const Expense:FC<Expense>= (props) => {
                 priority
             />
             break;
-        case "Won't use but still buy":
+        case "WontUseButStillBuy":
             icon = <WontUse />
             break;
         default:
@@ -151,7 +145,7 @@ const Expense:FC<Expense>= (props) => {
             break;
     }
     return (
-        <div className="expense">
+        <div id={props.id} className="expense">
             <div className="expense-icon icon-enclose">{icon}</div>
             <div className="expense-name">{props.name}</div>
             <div className="expense-cost">-${cost2DP}</div>

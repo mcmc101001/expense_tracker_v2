@@ -12,7 +12,7 @@ interface ClientProps {
 }
 
 interface Expense {
-  id: number;
+  id: string;
   name: string;
   type: string;
   created: Date;
@@ -21,11 +21,19 @@ interface Expense {
 
 const Client:FC<ClientProps> = (props) => {
 
-    const [filters, setFilters] = useState<string[]>(['Meals', 'Snacks', 'Gifts', 'Clothes', 'Transport','Entertainment', "Won't use but still buy", 'Misc.']);
+    const [filters, setFilters] = useState<string[]>(['Meals', 'Snacks', 'Gifts', 'Clothes', 'Transport','Entertainment', "WontUseButStillBuy", 'Misc']);
     const expensesList = props.expense;
 
-    const HandleChange = (filters:string[]) => {
-        setFilters(filters);
+    const HandleChange = (filtersList:string[]) => {
+        
+        let appended_filtersList = filtersList;
+        if (filtersList.includes("Won't use but still buy")) {
+          appended_filtersList.push("WontUseButStillBuy");
+        } 
+        if (filtersList.includes("Misc.")){
+          appended_filtersList.push("Misc");
+        }
+        setFilters(appended_filtersList);
     }
     
     let expenses_remain:Array<Expense> = []

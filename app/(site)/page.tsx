@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/lib/session";
 import LoginButton from "@/components/LoginButton";
 import LogoutButton from "@/components/LogoutButton";
+import Image from "next/image";
 
 export default async function Home() {
 
@@ -17,9 +18,8 @@ export default async function Home() {
     <>
       <h1>Hello world</h1>
       <LogoutButton />
-      <div>
-        Signed in as {user.name}
-      </div>
+      <h3>Signed in as {user.name}</h3>
+      <Image src={user?.image} alt={user.name ?? 'profile image'} width={ 50 } height={ 50 }/>
     </>
   );  
 }

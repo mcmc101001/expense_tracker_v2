@@ -2,31 +2,33 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { prisma } from "@/lib/prisma";
 import { getToken } from "next-auth/jwt";
 import { ExpenseType } from "@prisma/client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+
 
 export default async(req:NextApiRequest, res:NextApiResponse) => {
-    
-    console.log("Recieved API call")
-    const token = await getToken({ req })
 
-    if (!token) {
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
         res.status(401).json({ message: "You must be logged in." });
         return;
     }
-    console.log(token);
-    const userId = token?.id;
-    console.log(userId)
+
+    const { user } = session;
 
     if (req.method === "POST") {
-        console.log(req.body)
-        const body = req.body;
-        console.log(body.name)
-        console.log(body.cost)
-        console.log(body.type)
         try {
             const body = req.body;
+            if (body.type == "Won't use but still buy") {
+                body.type = "WontUseButStillBuy";
+            }
+            else if (body.type == "Misc.") {
+                body.type = "Misc";
+            }
             const expense = await prisma.expense.create({
                 data: {
-                    userId: userId!,
+                    userId: user.id!,
                     name: body.name,
                     cost: +body.cost,
                     type: body.type,
@@ -37,8 +39,6 @@ export default async(req:NextApiRequest, res:NextApiResponse) => {
             console.log("tried!");
             return res.status(500).end();
         }
-    } else {
-        console.log("not post");
     }
 }
 
