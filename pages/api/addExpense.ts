@@ -36,7 +36,6 @@ export default async(req:NextApiRequest, res:NextApiResponse) => {
             })
             return res.status(200).end();
         } catch(error) {
-            console.log("tried!");
             return res.status(500).end();
         }
     }

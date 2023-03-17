@@ -14,8 +14,13 @@ interface NavLinkProps {
 
 const NavLink = ({children, href, icon}: NavLinkProps) => {
     let segment = useSelectedLayoutSegment();
-    let isActive = href === `/${segment}`;
-    console.log({href, isActive});
+    let isActive = false;
+    if (!segment && href === '/') {
+        isActive = true;
+    }
+    else {
+        isActive = href === `/${segment}`;
+    }
     
     return (
         <li className={isActive ? "nav-link-active" : ""}>

@@ -1,8 +1,8 @@
 import { getCurrentUser } from '@/lib/session';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import Client from '@/components/wrapper';
 import { authOptions } from '@/lib/auth';
+import ExpenseSection from '@/components/ExpenseSection';
 
 async function getExpenses(sessionUserId: string ) {
   const res = await prisma.expense.findMany({
@@ -48,7 +48,7 @@ export default async function Home() {
     expenses = JSON.parse(JSON.stringify(expenses));
 
     return (
-        <Client expense={expenses} budget={budget_remain}/>
+        <ExpenseSection expense={expenses} budget={budget_remain}/>
     );
   }
 }
