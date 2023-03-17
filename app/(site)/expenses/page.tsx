@@ -12,6 +12,7 @@ async function getExpenses(sessionUserId: string ) {
       type: true,
       created: true,
       cost: true,
+      userId: true,
       },
     where: {
       userId: sessionUserId,
@@ -30,7 +31,7 @@ export default async function Home() {
     redirect(authOptions?.pages?.signIn || "api/auth/signin");
   }
   else{
-    const expenses = await getExpenses(user.id);
+    let expenses = await getExpenses(user.id);
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
@@ -42,6 +43,9 @@ export default async function Home() {
         budget_remain -= expense.cost;
       }
     })
+
+    //convert Date object to string
+    expenses = JSON.parse(JSON.stringify(expenses));
 
     return (
         <Client expense={expenses} budget={budget_remain}/>

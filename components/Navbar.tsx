@@ -4,46 +4,30 @@ import Link from 'next/link';
 import Bug from '@/components/svgs/Bug';
 import Home from '@/components/svgs/Home';
 import Expenses from '@/components/svgs/Expenses';
-import { usePathname } from 'next/navigation';
-
-const navFunctions = [
-    {name: "Home", link: "/"},
-    {name: "Expenses", link: "/expenses"},
-]
+import { useSelectedLayoutSegment } from 'next/navigation';
 
 interface NavLinkProps {
-    name: string;
-    link: string;
+    children: string;
+    href: string;
     icon: any;
 }
 
-const NavLink = ({name, link, icon}: NavLinkProps) => {
-    const isActive = usePathname() === link;
+const NavLink = ({children, href, icon}: NavLinkProps) => {
+    let segment = useSelectedLayoutSegment();
+    let isActive = href === `/${segment}`;
+    console.log({href, isActive});
+    
     return (
-        <li className={`${isActive && "nav-link-active"}`} key={name}>
-            <Link className="icon-enclose" key={name} href={link}>
+        <li className={isActive ? "nav-link-active" : ""}>
+            <Link className="icon-enclose" href={href}>
                 {icon}
-                <span>{name}</span>
+                <span>{children}</span>
             </Link>
         </li>
     )
 }
 
 function Navbar() { 
-
-    const navList = navFunctions.map((navFunction) => {
-        let svgIcon:any;
-        if (navFunction.name === "Home") {
-            svgIcon = <Home />
-        }
-        else if (navFunction.name === "Expenses") {
-            svgIcon = <Expenses />
-        }
-
-        return (
-           <NavLink key={navFunction.name} name={navFunction.name} icon={svgIcon} link={navFunction.link} />
-        )
-    })
 
     return ( 
         <nav className="navbar">
@@ -52,7 +36,8 @@ function Navbar() {
             </div>
             <div className="navbar-items">
                 <ul>
-                    {navList}
+                    <NavLink icon={<Home />} href="/">Home</NavLink>
+                    <NavLink icon={<Expenses />} href="/expenses">Expenses</NavLink>
                 </ul>
             </div>
         </nav>

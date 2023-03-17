@@ -5,18 +5,11 @@ import Filters from '@/components/Filters';
 import ExpenseTable from '@/components/Expense';
 import { useState, FC } from 'react';
 import ExpenseCreationForm from './ExpenseCreationForm';
+import { Expense } from '@prisma/client';
 
 interface ClientProps {
     budget: number;
     expense: Array<Expense>;
-}
-
-interface Expense {
-  id: string;
-  name: string;
-  type: string;
-  created: Date;
-  cost: number;
 }
 
 const Client:FC<ClientProps> = (props) => {
