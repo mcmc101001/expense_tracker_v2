@@ -84,7 +84,7 @@ const ExpenseCreationForm = () => {
                 id="type"
                 onChange={(e) => handleSelectChange(e)}
             />
-            <button type='submit' disabled={isDisabled}>Create expense</button>
+            <button className= "text-slate-100" type='submit' disabled={isDisabled}>Create expense</button>
         </form>
     );
 }

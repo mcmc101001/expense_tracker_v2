@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import { FC } from "react";
@@ -9,7 +9,6 @@ import Bug from "./svgs/Bug";
 import { useRouter } from "next/navigation";
 
 const Expense: FC<Expense> = (props) => {
-
     const router = useRouter();
 
     const expenseDate = new Date(props.created);
@@ -74,32 +73,32 @@ const Expense: FC<Expense> = (props) => {
             break;
     }
 
-    const handleDelete = async (e:React.MouseEvent<HTMLAnchorElement>) => {
+    const handleDelete = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         const expense_id = e.currentTarget.id;
 
-        await fetch('/api/deleteExpense', {
-            method : 'POST',
+        await fetch("/api/deleteExpense", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-              },
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify({
                 id: expense_id,
             }),
         });
 
         router.refresh();
-    }
+    };
 
     return (
-        <div className="expense">
-            <div className="expense-icon icon-enclose">{icon}</div>
-            <div className="expense-name">{props.name}</div>
-            <div className="expense-cost">-${cost2DP}</div>
-            <div className="expense-type">{props.type}</div>
-            <div className="expense-time">{time}</div>
-            <div className="expense-delete">
-                <a id={props.id}  onClick={(e) => handleDelete(e)}>
+        <div className="grid grid-cols-6 grid-flow-row gap-4 opacity-95 justify-center p-2 text-slate-100 text-sm md:text-3xl">
+            <div className="row-span-2 rounded-3xl flex items-center justify-center bg-slate-200 relative object-contain aspect-square">
+                {icon}
+            </div>
+            <div className="flex items-center font-bold col-span-2 row-span-1">{props.name}</div>
+            <div className="flex items-center justify-end font-bold col-span-2 row-span-1">-${cost2DP}</div>
+            <div className="expense-delete cursor-pointer relative col-span-1 row-span-2">
+                <a id={props.id} onClick={(e) => handleDelete(e)}>
                     <div className="trash"></div>
                     <div className="trash-top"></div>
                     <div className="trash-btm">
@@ -109,7 +108,9 @@ const Expense: FC<Expense> = (props) => {
                         </div>
                     </div>
                 </a>
-            </div>
+                </div>
+            <div className="flex items-center font-bold col-span-2 row-span-1">{props.type}</div>
+            <div className="flex items-center justify-end font-bold col-span-2 row-span-1">{time}</div>
         </div>
     );
 };
