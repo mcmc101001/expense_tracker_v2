@@ -7,6 +7,7 @@ import WontUse from "./svgs/WontUse";
 import { Expense } from "@prisma/client";
 import Bug from "./svgs/Bug";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 const Expense: FC<Expense> = (props) => {
     const router = useRouter();
@@ -88,6 +89,7 @@ const Expense: FC<Expense> = (props) => {
         });
 
         router.refresh();
+        toast.success("Expense Deleted!")
     };
 
     return (

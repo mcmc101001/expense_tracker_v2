@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import * as React from 'react';
 import { Inter } from 'next/font/google';
+import ToasterClient from "@/components/ui/Toaster";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
                 <title>Expense tracker v2</title>
             </head>
             <body className={inter.className}>
+                <ToasterClient />
                 <Navbar />
                 <main>
                     {children}

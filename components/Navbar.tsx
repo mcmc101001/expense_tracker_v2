@@ -5,6 +5,7 @@ import Bug from '@/components/svgs/Bug';
 import Home from '@/components/svgs/Home';
 import Expenses from '@/components/svgs/Expenses';
 import { useSelectedLayoutSegment } from 'next/navigation';
+import WontUse from './svgs/WontUse';
 
 interface NavLinkProps {
     children: string;
@@ -43,6 +44,7 @@ function Navbar() {
                 <ul className="w-full h-full flex flex-row md:flex-col justify-around items-center md:justify-center">
                     <NavLink icon={<Home className="hidden md:block" />} href="/">Home</NavLink>
                     <NavLink icon={<Expenses className="hidden md:block" />} href="/expenses">Expenses</NavLink>
+                    <NavLink icon={<WontUse className="hidden md:block" />} href="/resume">Resume</NavLink>
                 </ul>
             </div>
         </nav>

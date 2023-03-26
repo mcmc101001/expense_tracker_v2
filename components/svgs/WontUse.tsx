@@ -2,8 +2,8 @@ import * as React from "react"
 
 const WontUse = (props:any) => (
   <svg
-    width={800}
-    height={800}
+    width="60px"
+    height="60px"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

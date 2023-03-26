@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Select from 'react-select';
-
+import { toast } from 'react-hot-toast';
 
 const options = [
     { value: 'Meals', label:'Meals'},
@@ -45,6 +45,7 @@ const ExpenseCreationForm = () => {
         setType('');
         setIsDisabled(false);
         router.refresh();
+        toast.success('Expense created successfully');
     }
 
     const handleSelectChange = (e:any) => {

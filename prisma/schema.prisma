@@ -52,6 +52,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   expenses      Expense[]
+  resumes       Resume[]
 }
 
 model VerificationToken {
@@ -84,4 +85,15 @@ enum ExpenseType {
   Entertainment
   WontUseButStillBuy
   Misc
+}
+
+model Resume {
+  id      String   @id @default(cuid())
+  created DateTime @default(now())
+  name    String   @db.VarChar(255)
+  pdf     Bytes    @db.LongBlob
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String  
+
+  @@index([userId])
 }
