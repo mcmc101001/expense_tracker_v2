@@ -1,1 +1,4 @@
-[For practice] Overhaul of expense-tracker from django to next-js, using React and Tailwind at the frontend and Planetscale with Prisma ORM for the database, and next-auth for authentication
+Overhaul of expense-tracker from django to next-js, to learn:
++ React and Tailwind at the frontend,
++ Planetscale with Prisma ORM, as well as AWS S3 for the database,
++ Next-auth with Google OAuth for authentication
