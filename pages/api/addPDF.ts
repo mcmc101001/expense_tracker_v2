@@ -1,0 +1,75 @@
+import { NextApiRequest, NextApiResponse } from "next"
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { S3RequestPresigner } from "@aws-sdk/s3-request-presigner";
+import { fromIni } from "@aws-sdk/credential-provider-ini";
+import { Hash } from "@aws-sdk/hash-node";
+import { HttpRequest } from "@aws-sdk/protocol-http";
+import { parseUrl } from "@aws-sdk/url-parser";
+import { formatUrl } from "@aws-sdk/util-format-url";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+// const createPresignedUrlWithClient = async ({ region, bucket, key }) => {
+//     const client = new S3Client({ region, 
+//         credentials: {
+//             accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+//             secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string
+//         } 
+//     });
+//     const command = new PutObjectCommand({ Bucket: bucket, Key: key });
+//     return getSignedUrl(client, command, { expiresIn: 3600 });
+//   };
+
+const createPresignedUrlWithoutClient = async ({ region , bucket, key }) => {
+    const url = parseUrl(`https://${bucket}.s3.${region}.amazonaws.com/${key}`);
+    const presigner = new S3RequestPresigner({
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string
+      },
+      region,
+      sha256: Hash.bind(null, "sha256"),
+    });
+  
+    const signedUrlObject = await presigner.presign(
+      new HttpRequest({ ...url, method: "PUT" })
+    );
+    return formatUrl(signedUrlObject);
+  };
+
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: "10mb",
+        }
+    }
+};
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+    if (req.method != "POST") {
+        return res.status(405).json({message: "Method not allowed"})
+    }
+    
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
+        res.status(401).json({ message: "You must be logged in." });
+        return;
+    }
+    try {
+        let { name, type } = req.body;
+
+        const url = await createPresignedUrlWithoutClient({
+            region: process.env.AWS_REGION,
+            bucket: process.env.AWS_BUCKET_NAME,
+            key: name,
+          });
+
+        res.status(200).json({ url });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: "Something went wrong"});
+    } 
+}
+
