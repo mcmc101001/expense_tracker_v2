@@ -37,7 +37,7 @@ export default async function Home() {
     return (
         <>
           < ResumeUploader />
-          < PDFViewer url="https://expense-tracker-v2.s3.ap-southeast-1.amazonaws.com/T04Ans.pdf" />
+          < PDFViewer url="https://expense-tracker-v2.s3.ap-southeast-1.amazonaws.com/Verilog_Tutorial.pdf" />
         </>
     );
   }

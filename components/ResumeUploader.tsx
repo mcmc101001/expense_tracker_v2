@@ -41,11 +41,13 @@ export default function ResumeUploader() {
             console.log(url);
 
             const formData = new FormData();
+            formData.append("Content-Type", "application/pdf");
+            formData.append("Content-Disposition", "inline");
             formData.append("file", file);
 
             await axios.put(url, formData, {
               headers: {
-                "Content-Type": file.type,
+                "Content-Type": "application/pdf",
                 "Content-Disposition": "inline",
                 "Access-Control-Allow-Origin": "*",
               },
