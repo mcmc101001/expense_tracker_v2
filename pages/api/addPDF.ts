@@ -21,20 +21,24 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 //     return getSignedUrl(client, command, { expiresIn: 3600 });
 //   };
 
-const createPresignedUrlWithoutClient = async ({ region , bucket, key }) => {
-    const url = parseUrl(`https://${bucket}.s3.${region}.amazonaws.com/${key}`);
+const createPresignedUrlWithoutClient = async (params: { region: string , bucket: string, key: string }) => {
+    const url = parseUrl(`https://${params.bucket}.s3.${params.region}.amazonaws.com/${params.key}`);
     const presigner = new S3RequestPresigner({
       credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string
       },
-      region,
+      region: params.region,
       sha256: Hash.bind(null, "sha256"),
     });
   
     const signedUrlObject = await presigner.presign(
-      new HttpRequest({ ...url, method: "PUT" })
+      new HttpRequest({ ...url, method: "PUT"})
     );
+
+    signedUrlObject.headers["Content-Type"] = "application/pdf";
+    signedUrlObject.headers["Conent-Disposition"] = "inline";
+
     return formatUrl(signedUrlObject);
   };
 
@@ -61,9 +65,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         let { name, type } = req.body;
 
         const url = await createPresignedUrlWithoutClient({
-            region: process.env.AWS_REGION,
-            bucket: process.env.AWS_BUCKET_NAME,
+            region: process.env.AWS_REGION as string,
+            bucket: process.env.AWS_BUCKET_NAME as string,
             key: name,
+            
           });
 
         res.status(200).json({ url });

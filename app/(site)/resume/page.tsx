@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
 import ResumeUploader from '@/components/ResumeUploader';
+import PDFViewer from '@/components/ResumeViewer';
 
 /*
 async function getExpenses(sessionUserId: string ) {
@@ -34,7 +35,10 @@ export default async function Home() {
   }
   else{
     return (
-        <ResumeUploader />
+        <>
+          < ResumeUploader />
+          < PDFViewer url="https://expense-tracker-v2.s3.ap-southeast-1.amazonaws.com/T04Ans.pdf" />
+        </>
     );
   }
 }

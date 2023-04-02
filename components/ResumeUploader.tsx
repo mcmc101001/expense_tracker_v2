@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { Bungee_Inline } from "next/font/google";
 
 export default function ResumeUploader() {
 
@@ -45,6 +46,7 @@ export default function ResumeUploader() {
             await axios.put(url, formData, {
               headers: {
                 "Content-Type": file.type,
+                "Content-Disposition": "inline",
                 "Access-Control-Allow-Origin": "*",
               },
             })
@@ -59,6 +61,7 @@ export default function ResumeUploader() {
             type="file"
             accept=".pdf"
             onChange={(e) => fileSelectedHandler(e)}
+            // value = {file ?? ''}
             ></input>
             <button disabled={isDisabled} type='submit'>Upload</button>
         </form>
