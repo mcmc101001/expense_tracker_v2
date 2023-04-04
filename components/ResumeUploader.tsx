@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { Bungee_Inline } from "next/font/google";
+import { useRef } from "react";
 
 export default function ResumeUploader() {
 
     const [ isDisabled, setIsDisabled ] = useState(false);
     const [ file, setFile ] = useState<File | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     const fileSelectedHandler = (e: React.FormEvent<HTMLInputElement>) => {
         if (e.currentTarget.files && e.currentTarget.files[0]) {
@@ -38,21 +39,24 @@ export default function ResumeUploader() {
             });
 
             const url = data.url;
-            console.log(url);
 
-            const formData = new FormData();
-            formData.append("Content-Type", "application/pdf");
-            formData.append("Content-Disposition", "inline");
-            formData.append("file", file);
+            // const formData = new FormData();
+            // formData.append("Content-Type", "application/pdf");
+            // formData.append("Content-Disposition", "inline");
+            // formData.append("file", file);
 
-            await axios.put(url, formData, {
+            await axios.put(url, file, {
               headers: {
                 "Content-Type": "application/pdf",
                 "Content-Disposition": "inline",
                 "Access-Control-Allow-Origin": "*",
               },
             })
-
+            
+            toast.success('PDF uploaded successfully');
+            if (inputRef.current) {
+                inputRef.current.value = '';
+            }
             setIsDisabled(false);
         }
     };
@@ -62,8 +66,8 @@ export default function ResumeUploader() {
             <input
             type="file"
             accept=".pdf"
+            ref = {inputRef}
             onChange={(e) => fileSelectedHandler(e)}
-            // value = {file ?? ''}
             ></input>
             <button disabled={isDisabled} type='submit'>Upload</button>
         </form>

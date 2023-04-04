@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { S3RequestPresigner } from "@aws-sdk/s3-request-presigner";
-import { fromIni } from "@aws-sdk/credential-provider-ini";
 import { Hash } from "@aws-sdk/hash-node";
 import { HttpRequest } from "@aws-sdk/protocol-http";
 import { parseUrl } from "@aws-sdk/url-parser";
@@ -26,6 +25,7 @@ const createPresignedUrlWithoutClient = async (params: {
     bucket: string;
     key: string;
 }) => {
+    
     const url = parseUrl(
         `https://${params.bucket}.s3.${params.region}.amazonaws.com/${params.key}`
     );
@@ -39,10 +39,15 @@ const createPresignedUrlWithoutClient = async (params: {
     });
 
     const signedUrlObject = await presigner.presign(
-        new HttpRequest({ ...url, method: "PUT" })
+        new HttpRequest({ 
+            ...url, 
+            method: "PUT",
+            headers: {
+                'Content-Type': "application/pdf",
+            },
+        })
     );
 
-    signedUrlObject.headers["Content-Type"] = "application/pdf";
     console.log(signedUrlObject);
 
     return formatUrl(signedUrlObject);
